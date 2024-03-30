@@ -6,7 +6,7 @@ if(req.url==='/access'){
     res.write('access clear')
     res.end()
 }else{
-    res.write('access worng')
+    res.write('access worngtouch')
     res.end()
 }
 
