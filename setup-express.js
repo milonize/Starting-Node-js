@@ -1,13 +1,16 @@
 const express=require('express')
 const app=express();
 
+app.use(express.json());
+
 app.get('/',(req,res)=>{
     console.log('get method working')
-    res.end()
+    res.send('Hello get method')
 })
 app.post('/',(req,res)=>{
-    console.log('post method working')
-    res.end()
+    console.log(req.body)
+    res.send('Hello post method')
+
 })
 
 app.listen(3000,()=>{
