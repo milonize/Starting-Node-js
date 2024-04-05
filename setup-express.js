@@ -1,15 +1,15 @@
 const express=require('express')
 const app=express();
-
+app.set('view engine','ejs');
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/',(req,res)=>{
-    console.log('get method working')
-    res.send('Hello get method')
+res.render('pages');
 })
-app.post('/',(req,res)=>{
+app.post('/submit',(req,res)=>{
     console.log(req.body)
-    res.send('Hello post method')
+    res.send('Your data send in the server successfully')
 
 })
 
