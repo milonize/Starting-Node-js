@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View pages</title>
+  </head>
+  <body>
+    <h1>Basic Ajax Form</h1>
+    <div id="alertBox"></div>
+    <form id="from">
+      <input type="text" name="name" id="" placeholder="Name" /> <br />
+      <br />
+      <input type="text" name="email" id="" placeholder="Email" /><br />
+      <br />
+      <button type="submit">submit data</button>
+    </form>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- Send form data using ajax  -->
+    <script>
+      document.querySelector("#from").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(e.target).entries());
+        console.log(data);
+
+        $.ajax({
+          url: "/ajax-submit",
+          data: $("#from").serialize(), // Serializing form data
+          type: "post",
+
+          beforeSend: function () {
+            $("#alertBox").html(
+              `<span class="text-warning">Sending your message...</span>`
+            );
+          },
+          success: function (result) {
+            $("#alertBox").html(
+              `<span class="text-success">Message send successfully!</span>`
+            );
+          },
+          error: function (error) {
+            $("#alertBox").html(
+              `<span class="text-danger">Sorry! Message not send</span>`
+            );
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

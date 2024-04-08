@@ -7,9 +7,9 @@ app.use(express.json());
 
 
 app.get('/',(req,res)=>{
-res.render('pages');
+res.render('ajax-view');
 })
-app.post('/submit',(req,res)=>{
+app.post('/ajax-submit',(req,res)=>{
     console.log(req.body)
     res.send('Your data send in the server successfully')
 
