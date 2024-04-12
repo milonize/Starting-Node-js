@@ -8,10 +8,11 @@
   <body>
     <h1>Basic Ajax Form</h1>
     <div id="alertBox"></div>
-    <form id="from">
+    <form id="from" enctype="multipart/form-data">
       <input type="text" name="name" id="" placeholder="Name" /> <br />
       <br />
       <input type="text" name="email" id="" placeholder="Email" /><br />
+      <input type="file" name="images" id="" placeholder="Email" /><br />
       <br />
       <button type="submit">submit data</button>
     </form>
@@ -22,7 +23,39 @@
       referrerpolicy="no-referrer"
     ></script>
     <!-- Send form data using ajax  -->
+
     <script>
+      $(document).ready(function () {
+        $("#from").on("submit", function (e) {
+          e.preventDefault();
+          var formData = new FormData(this);
+          $.ajax({
+            url: "/ajax-submit",
+            type: "POST",
+            data: formData,
+            contentType: false, // This is required for multipart/form-data
+            processData: false, // This is required to prevent jQuery from converting the data into a query string
+            beforeSend: function () {
+              $("#alertBox").html(
+                `<span class="text-warning">Sending your message...</span>`
+              );
+            },
+            success: function (result) {
+              $("#alertBox").html(
+                `<span class="text-success">Message send successfully!</span>`
+              );
+            },
+            error: function (error) {
+              $("#alertBox").html(
+                `<span class="text-danger">Sorry! Message not send</span>`
+              );
+            },
+          });
+        });
+      });
+    </script>
+
+    <!-- <script>
       document.querySelector("#from").addEventListener("submit", (e) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target).entries());
@@ -32,7 +65,6 @@
           url: "/ajax-submit",
           data: $("#from").serialize(), // Serializing form data
           type: "post",
-
           beforeSend: function () {
             $("#alertBox").html(
               `<span class="text-warning">Sending your message...</span>`
@@ -49,7 +81,7 @@
             );
           },
         });
-      });
+      }); -->
     </script>
   </body>
 </html>

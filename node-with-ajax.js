@@ -1,16 +1,20 @@
-const express=require('express')
+const express=require('express');
+const multer=require('multer');
 const app=express();
 app.set('view engine','ejs');
-app.use(express.urlencoded({ extended: true }));
+const destination='./uploads/'
+const fileUpload=multer({
+    dest:destination,
+})
 
-app.use(express.json());
+// app.use(express.json());
 
 
 app.get('/',(req,res)=>{
 res.render('ajax-view');
 })
-app.post('/ajax-submit',(req,res)=>{
-    console.log(req.body)
+app.post('/ajax-submit',fileUpload.single('images'), (req,res)=>{
+    // console.log(req.body)
     res.send('Your data send in the server successfully')
 
 })
